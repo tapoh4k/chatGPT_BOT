@@ -8,9 +8,7 @@ from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 
 # Токен ВК необходим для связи бота с Вконтакте
 
-VK_token = "vk1.a.g2UQKpyQWvru8RYpCmRl8UPnt-cs_hIpNzHkG69cNsyDWtfOb2vslflAGqyXHJS81tfIcXeWx" \
-           "-zMGqJ8zbyXBXElHnEoLxzumEv_tr27K7Xspl 6tyUIk3W32zhb_EEFsOyp5itnkciqRpn" \
-           "-K5VIGPa2iUOquAwSvpMSZj_OvrN8NTUrT0Sek5XpuLy4vQt0RSzcDkpy6VJypHys5JIVaAg"
+VK_token = "vk1.a.mSnOxf521Eb-eUXTnlsopdrL3Q8Yzds_RgMhxdI4ZZNciAS07MqOHjSwz6ZEXSDwbM4Fr1CP7fmdYrRGh83WUScaGIO3fP9O3OKnCEzosRhNmqFuddl1VS0BeHoTxiPjrVDNmviJi_5CtOk1r8XAGQWWEMiVyb8WhWHMKEkLwx7O9DtA1bLRmVFPEtlORbcdOlfgvfU-fWAIv8FQBeY-LA"
 
 database = None
 cursor = None
@@ -99,7 +97,7 @@ def init_database():
 def init_VK():
     global vk_session, longpoll
     vk_session = vk_api.VkApi(token=VK_token)
-    longpoll = VkBotLongPoll(vk_session, group_id=219866377)
+    longpoll = VkBotLongPoll(vk_session, group_id=220062995)
 
 
 # Функция инициализации бота
