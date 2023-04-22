@@ -197,3 +197,66 @@ def init_bot():
                     vk_session.method('messages.send',
                                       {'user_id': user_id, 'random_id': random.randrange(0, 16), 'message':
                                           'Похоже, ваше сообщение, как и ответ на него, написаны на английском языке, желаете перевести?'})
+
+
+# Функция получения всех сообщений пользователя из базы данных и добавление их в массив
+
+def get_messages(userid):
+    get_data = cursor.execute(f"SELECT message FROM messages WHERE userid = {userid}")
+    for data in get_data.fetchall():
+        messages.append(data)
+
+
+# Функция получения времени отправки всех сообщений
+
+def get_messages_times(userid):
+    get_data = cursor.execute(f"SELECT time FROM messages WHERE userid = {userid}")
+    for data in get_data.fetchall():
+        times.append(data)
+
+
+# Функция получения всех ответов на сообщения пользователя из базы данных и добавление их в массив
+
+def get_answers(userid):
+    get_data = cursor.execute(f"SELECT answer FROM messages WHERE userid = {userid}")
+    for data in get_data.fetchall():
+        answers.append(data)
+
+
+# Функция определения средней длины сообщений пользователя
+
+def average_message_length(userid):
+    temp = [len(data) for data in messages]
+    result = 0 if len(temp) == 0 else (float(sum(temp)) / len(temp))
+    vk_session.method('messages.send', {'user_id': userid, 'random_id': random.randrange(0, 16), 'message':
+        f'Средняя длина сообщений: {result}'})
+
+
+# Функция определения средней длины ответов на сообщения пользователей
+
+def average_answer_length(userid):
+    temp = [len(data) for data in messages]
+    result = 0 if len(temp) == 0 else (float(sum(temp)) / len(temp))
+    vk_session.method('messages.send', {'user_id': userid, 'random_id': random.randrange(0, 16), 'message':
+        f'Средняя длина ответов на сообщения: {result}'})
+
+
+# Функция добавления новой записи в базу данных
+
+def add_message_in_database(userid, message, answer):
+    cursor.execute(f"""INSERT INTO messages VALUES 
+                    ({userid}, {message}, {answer}, {datetime.now()})""")
+
+
+# Функция определения языка сообщения
+
+def detect_language(message):
+    return detect(message)
+
+
+# Функция запуска программы
+
+if __name__ == "__main__":
+    init_VK()
+    init_database()
+    init_bot()
